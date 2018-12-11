@@ -1,4 +1,4 @@
-package test.commandLineRunner;
+package com.zyh.learn.zyhlearn.commandLineRunnerTest;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
