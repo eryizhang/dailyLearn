@@ -51,6 +51,8 @@ public class TestCommon {
         "@#$%00f8{\"api_version\":\"0.1\",\"from\":\"\",\"to\":\"000c431818bf\",\"msg_id\":\"xfBai-127\",\"msg_class\":\"device_mgmt\",\"msg_name\":\"DL_id_add\",\"msg_type\":\"set\",\"device\":{\"device_id\":1,\"type\":1,\"permi\":4,\"name\":\"test123\",\"pwd\":\"32486b25f436810a08072565771f54c5\"}}";
     js =
         "@#$%00c4{\"api_version\":\"0.1\",\"from\":\"\",\"to\":\"000c431818bf\",\"msg_id\": \"xfBai-107\",\"msg_class\":\"control_mgmt\",\"msg_name\":\"doorlock_request_open\",\"msg_type\":\"set\",\"token\":\"\",\"device\":{\"device_id\":1}}";
+    js =
+        "@#$%00c6{\"api_version\":\"0.1\",\"from\":\"\",\"to\":\"000c431818bf\",\"msg_id\": \"xfBai-107\",\"msg_class\":\"control_mgmt\",\"msg_name\":\"device_state_get\",\"msg_type\":\"get\",\"token\":\"\",\"device_list\":[{\"device_id\":1}]}";
 
     hex = Integer.toHexString(js.getBytes().length);
     System.out.println(js.getBytes().length);

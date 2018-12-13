@@ -76,6 +76,16 @@ public class SortTest {
             }));
   }
 
+  // 传统反向排序
+  public void traditionCompareByNameReverse() {
+    users.sort((o1, o2) -> o1.getAge() - o2.getAge());
+  }
+
+  // java8反向排序
+  public void traditionCompareByNameInJava8Reverse() {
+    users.sort(comparingInt(User::getAge).reversed());
+  }
+
   // 根据姓名，年龄，积分排序洗涤
   public static void traditionCombinationCompare() {
     Collections.sort(
