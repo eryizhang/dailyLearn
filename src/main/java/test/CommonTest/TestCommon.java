@@ -60,6 +60,14 @@ public class TestCommon {
       hex = "0" + hex;
     }
     System.out.println(hex);
+
+    Integer[] ay1 = {1, 2, 3, 5, 6};
+    List<Integer> asList1 = Arrays.asList(ay);
+    System.out.println(asList1.size());
+    asList1.add(null);
+    System.out.println(asList1.size());
+
+    //System.out.println(Integer.);
   }
 
   private static void arrayListPreAdd() {
