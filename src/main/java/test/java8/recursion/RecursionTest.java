@@ -17,7 +17,7 @@ public class RecursionTest
      */
     public static int factorialTailRecursionOld(final int factorial, final int number) {
         if (number == 1) {return factorial;}
-        else{ return factorialTailRecursionOld(factorial * number, number - 1);}
+        else{ return factorialTailRecursionOld(factorial + number, number - 1);}
     }
 
 
@@ -27,6 +27,11 @@ public class RecursionTest
 
         System.out.println(factorialTailRecursion(  1,   5).invoke());
 
+
+        long now=System.currentTimeMillis();
+        System.out.println(FactorialStatic.fibonacciMemo(100)+"   "+(System.currentTimeMillis()-now));
+        now=System.currentTimeMillis();
+        System.out.println(fibonacciIter(100)+"   "+(System.currentTimeMillis()-now));
     }
 
     /**
@@ -40,5 +45,24 @@ public class RecursionTest
         { return TailInvoke.done(factorial);}
         else
         {   return TailInvoke.call(() -> factorialTailRecursion(factorial + number, number - 1));}
+    }
+
+
+    /**
+     * 斐波那契的迭代解法,自底向上求解
+     * @param n 第n个斐波那契数
+     * @return 第n个斐波那契数
+     */
+    public static long fibonacciIter(int n) {
+        long prev = 1;
+        long next = 1;
+
+        long accumulate = 0;
+        for (int i = 2; i <= n; i++) {
+            accumulate = prev + next;
+            prev = next;
+            next = accumulate;
+        }
+        return accumulate;
     }
 }
