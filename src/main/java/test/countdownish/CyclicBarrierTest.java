@@ -22,19 +22,27 @@ public class CyclicBarrierTest {
                 System.out.println("shadongxi ");
             }
         });
+        long ll=System.currentTimeMillis();
         for (int i = 0; i < N; i++) {
             new Writer(barrier, i + 1).start();
         }
+        System.out.println(
+                "所有线程写入完毕，继续处理其他任务..." + Thread.currentThread().getName() + "等待时间" + (System.currentTimeMillis()
+                        - ll) + "当前时间" + System.currentTimeMillis());
 
-        System.out.println("CyclicBarrier重用");
         try {
             Thread.sleep(25000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("CyclicBarrier重用");
+        ll=System.currentTimeMillis();
         for (int i = 0; i < N; i++) {
             new Writer(barrier, i + 10).start();
         }
+        System.out.println(
+                "所有线程写入完毕，继续处理其他任务..." + Thread.currentThread().getName() + "等待时间" + (System.currentTimeMillis()
+                        - ll) + "当前时间" + System.currentTimeMillis());
     }
 
     static class Writer extends Thread {
@@ -51,14 +59,15 @@ public class CyclicBarrierTest {
             //int i=(int) (Math.random()*10);
             long l = 0;
             try {
-
-                System.out.println("线程" + Thread.currentThread().getName() + "正在写入数据...睡" + io);
-
-                Thread.sleep(2000 * io);      //以睡眠来模拟写入数据操作
                 l = System.currentTimeMillis();
-                System.out.println("线程" + Thread.currentThread().getName() + "写入数据完毕，等待其他线程写入完毕****" + l);
+                //System.out.println("线程" + Thread.currentThread().getName() + "正在写入数据...睡" + io+"****************" + l);
+
+                //Thread.sleep(2000 * io);      //以睡眠来模拟写入数据操作
+                l = System.currentTimeMillis();
+                System.out.println("线程" + Thread.currentThread().getName() + "写入数据完毕，等待其他线程写入完毕****" + l+"   "+System.currentTimeMillis());
                 cyclicBarrier.await(io, TimeUnit.SECONDS);
-                //Thread.sleep(2000*io);      //以睡眠来模拟写入数据操作
+
+                Thread.sleep(2000*io);      //以睡眠来模拟写入数据操作
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (BrokenBarrierException e) {
@@ -72,8 +81,9 @@ public class CyclicBarrierTest {
                                 - l) + "当前时间" + System.currentTimeMillis());
             }
             System.out.println(
-                    "所有线程写入完毕，继续处理其他任务..." + Thread.currentThread().getName() + "等待时间" + (System.currentTimeMillis()
+                    "写入完毕，继续处理其他任务..." + Thread.currentThread().getName() + "等待时间" + (System.currentTimeMillis()
                             - l) + "当前时间" + System.currentTimeMillis());
+
         }
     }
 }

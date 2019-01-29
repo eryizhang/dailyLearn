@@ -14,6 +14,8 @@ public class SemaphoreTest {
     public static void main(String[] args) {
         int N = 8;            //工人数
         Semaphore semaphore = new Semaphore(5); //机器数目
+
+        //ResizeableSemaphore resizeableSemaphore;
         for (int i = 0; i < N; i++) {
             new Worker(i, semaphore).start();
         }
@@ -22,6 +24,7 @@ public class SemaphoreTest {
     static class Worker extends Thread {
         private final int num;
         private final Semaphore semaphore;
+
 
         Worker(int num, Semaphore semaphore) {
             this.num = num;
