@@ -1,0 +1,48 @@
+package jdklearn.oom;
+
+/**
+ * @Auther: zhangyahui
+ * @Date: 2019/1/21 14:29
+ * @Description:
+ */
+public class FinalizeEscapeGC {
+
+    public static FinalizeEscapeGC SAVE_HOOK = null;
+    public String name;
+    public FinalizeEscapeGC(String name) {
+        this.name = name;
+    }
+    public void isAlive() {
+        System.out.println("yes, i am still alive");
+    }
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("finalize method executed!");
+        System.out.println(this.name);
+        FinalizeEscapeGC.SAVE_HOOK = this;
+    }
+    public static void main(String[] args) throws Throwable {
+        String s ="123";
+        s=null;
+        System.out.println(s);
+        SAVE_HOOK = new FinalizeEscapeGC("abc");
+        SAVE_HOOK =null;
+        System.gc();
+        Thread.sleep(500);
+        if(SAVE_HOOK != null) {
+            SAVE_HOOK.isAlive();
+        } else {
+            System.out.println("no, i am dead");
+        }
+
+        SAVE_HOOK =null;
+        System.gc();
+        Thread.sleep(500);
+        if(SAVE_HOOK != null) {
+            SAVE_HOOK.isAlive();
+        } else {
+            System.out.println("no, i am dead");
+        }
+    }
+}
