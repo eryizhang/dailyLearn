@@ -1,4 +1,4 @@
-package test.synchronize_wait_notify;
+package test.synchronize_wait_notify_lock;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

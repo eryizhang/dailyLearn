@@ -1,4 +1,4 @@
-package test.synchronize_wait_notify;
+package test.synchronize_wait_notify_lock;
 
 /**
  * <p>

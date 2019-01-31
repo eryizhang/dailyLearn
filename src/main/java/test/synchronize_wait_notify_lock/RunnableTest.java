@@ -1,4 +1,4 @@
-package test.synchronize_wait_notify;
+package test.synchronize_wait_notify_lock;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
  */
 public class RunnableTest implements Runnable {
     private static void testSyncBlock() {
-        synchronized (RunnableTest.class) {
+        synchronized(RunnableTest.class) {
             for (int i = 0; i < 10; i++) {
                 System.out.println(Thread.currentThread().getId() + "testSyncBlock:" + i);
             }
