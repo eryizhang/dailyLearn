@@ -1,4 +1,4 @@
-package test.synchronize_wait_notify_lock;
+package test.synchronize_wait_notify_lock.synchronizedp;
 
 import java.util.ArrayList;
 

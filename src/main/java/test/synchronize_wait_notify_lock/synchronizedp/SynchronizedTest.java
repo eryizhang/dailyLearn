@@ -1,4 +1,4 @@
-package test.synchronize_wait_notify_lock;
+package test.synchronize_wait_notify_lock.synchronizedp;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -13,23 +13,76 @@ public class SynchronizedTest {
 
         STest sTest = new STest();
 
-        new Thread() {
-            public void run() {sTest.d("ta");};}.start();
+        STest sTest1 = new STest();
+
+
+/*        new Thread() {
+            public void run() {
+                sTest.d("ta");
+            }
+
+            ;
+        }.start();
 
         new Thread() {
-            public void run() {sTest.a("tb"); };}.start();
+            public void run() {
+                sTest1.d("tb");
+            }
+
+            ;
+        }.start();*/
+
+
+        Sint sint = new Sint();
+        sTest.sint = sint;
+        sTest1.sint = sint;
+
+        new Thread() {
+            public void run() {
+                sTest.f("ta");
+            }
+
+            ;
+        }.start();
+
+        new Thread() {
+            public void run() {
+                sTest1.f("tb1");
+            }
+
+            ;
+        }.start();
 
     }
 }
 
 class Sint {
-    int i = 0;
+    private int i = 0;
+    private int m = 0;
+
+    public int getI() {
+        return i;
+    }
+
+    public void setI(int i) {
+        this.i = i;
+    }
+
+    public int getM() {
+        return m;
+    }
+
+    public void setM(int m) {
+        this.m = m;
+    }
 }
+
 class STest {
     static Integer ia = 0;
     AtomicInteger ai = new AtomicInteger(0);
     static final int count = 10000;
     Sint sint = new Sint();
+
 
     public synchronized void a(String s) {
         /*synchronized(ia)*/
@@ -38,7 +91,6 @@ class STest {
             int i = 0;
             while (i < count) {
                 ia++;
-                sint.i = ia;
                 i++;
             }
         }
@@ -51,7 +103,6 @@ class STest {
             int i = 0;
             while (i < count) {
                 ia++;
-                sint.i = ia;
                 i++;
             }
             System.out.println("this is " + s + " " + ia + " " + System.currentTimeMillis());
@@ -63,15 +114,14 @@ class STest {
      * 最后的结果也大概率不是20000
      */
     public void c(String s) {
-          synchronized (ia) {
-        System.out.println("jinru  " + s);
-        int i = 0;
-        while (i < count) {
-            ia++;
-            sint.i = ia;
-            i++;
-        }
-        System.out.println("this is " + s + " " + ia + " " + System.currentTimeMillis());
+        synchronized (ia) {
+            System.out.println("jinru  " + s);
+            int i = 0;
+            while (i < count) {
+                ia++;
+                i++;
+            }
+            System.out.println("this is " + s + " " + ia + " " + System.currentTimeMillis());
         }
     }
 
@@ -84,7 +134,36 @@ class STest {
             int i = 0;
             while (i < count) {
                 ia++;
-                sint.i = ia;
+                sint.setI(ia);
+                i++;
+            }
+            System.out.println("this is " + s + " " + ia + " " + System.currentTimeMillis());
+        }
+    }
+
+    /*
+     * d方法的输出和预期一致，锁住了sint对象的操作
+     */
+    public void d1(String s) {
+        synchronized (sint) {
+            System.out.println("jinru  " + s);
+            int i = 0;
+            while (i < count) {
+                ia++;
+                sint.setM(ia);
+                i++;
+            }
+            System.out.println("this is " + s + " " + ia + " " + System.currentTimeMillis());
+        }
+    }
+
+    public void f(String s) {
+        synchronized (Sint.class) {
+            System.out.println("jinru  " + s);
+            int i = 0;
+            while (i < count) {
+                ia++;
+                sint.setM(ia);
                 i++;
             }
             System.out.println("this is " + s + " " + ia + " " + System.currentTimeMillis());
