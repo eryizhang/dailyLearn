@@ -11,11 +11,10 @@ import java.lang.reflect.Proxy;
 public class Test {
 
     public static void main(String[] args) {
-        testWork();
+        testStudentWork();
     }
 
-    static void testWork()
-    {
+    static void testWork() {
         //要代理的真实对象
         People people = new Teacher();
         //代理对象的调用处理程序，我们将要代理的真实对象传入代理对象的调用处理的构造函数中，最终代理对象的调用处理程序会调用真实对象的方法
@@ -29,18 +28,17 @@ public class Test {
         People proxy = (People) Proxy.newProxyInstance(handler.getClass().getClassLoader(), people.getClass().getInterfaces(), handler);
         //System.out.println(proxy.toString());
         System.out.println(proxy.work());
-        InvocationHandler handler1=Proxy.getInvocationHandler(proxy);
+        InvocationHandler handler1 = Proxy.getInvocationHandler(proxy);
         System.out.println(handler1.getClass());
-        Class p=Proxy.getProxyClass(handler.getClass().getClassLoader(),proxy.getClass());
+        Class p = Proxy.getProxyClass(handler.getClass().getClassLoader(), proxy.getClass());
         System.out.println(p.getClass());
     }
 
-    static void testStudentWork()
-    {
+    static void testStudentWork() {
         People people = new Student();
         InvocationHandler handler = new WorkStudentHandler(people);
 
-        People proxy = (People)Proxy.newProxyInstance(people.getClass().getClassLoader(), people.getClass().getInterfaces(), handler);
+        People proxy = (People) Proxy.newProxyInstance(people.getClass().getClassLoader(), people.getClass().getInterfaces(), handler);
         People p = proxy.work("写代码").work("开会").work("上课");
 
         System.out.println("打印返回的对象");
@@ -50,7 +48,6 @@ public class Test {
         System.out.println(time);
 
     }
-
 
 
 }
