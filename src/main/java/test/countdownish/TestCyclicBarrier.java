@@ -40,8 +40,8 @@ public class TestCyclicBarrier {
 
         Thread.sleep(10000);
         System.out.println("================barrier重用==========================");
-        if(barrier.isBroken())
-        {
+        if (barrier.isBroken()) {
+            System.out.println("上轮出现了问题，reset");
             barrier.reset();
         }
         for (int i = 0; i < THREAD_NUMBER; i++) {
@@ -66,7 +66,7 @@ public class TestCyclicBarrier {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getId() + "：写入数据完毕，等待其他小伙伴..."+barrier.getNumberWaiting()+"pat"+barrier.getParties());
+            System.out.println(Thread.currentThread().getId() + "：写入数据完毕，等待其他小伙伴..." + barrier.getNumberWaiting() + "pat" + barrier.getParties());
             try {
                 barrier.await(2000, TimeUnit.MILLISECONDS); // 只等待2s，必然会等待最后一个线程超时
             } catch (InterruptedException e) {
