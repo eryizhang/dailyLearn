@@ -17,7 +17,7 @@ public class Temp {
 
     private void waiter() throws InterruptedException {
         synchronized (this) {
-            System.out.println("等待");
+            System.out.println(Thread.currentThread() +"等待");
             wait();
             System.out.println(count);
         }
@@ -59,20 +59,22 @@ public class Temp {
 
     private void notifyer() throws InterruptedException {
         synchronized (this) {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(10);
+            notify();
             System.out.println("唤醒");
             for (int i = 0; i < 10; i++) {
                 System.out.println(Thread.currentThread() + "notifyer:" + i);
                 count += i;
             }
-            notify();
+
         }
     }
 
     public static void main(String[] args) {
         Temp temp = new Temp();
         ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.execute(new Waiter(temp));
+        for (int i = 0; i < 10; i++) {
+        executorService.execute(new Waiter(temp));}
         executorService.execute(new Notifyer(temp));
         executorService.shutdown();
     }
