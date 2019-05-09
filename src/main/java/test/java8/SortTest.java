@@ -129,9 +129,9 @@ public class SortTest {
 
 @Data
 class User {
-  private final String name;
-  private final Integer age;
-  private final Integer credits;
+  private  String name;
+  private  Integer age;
+  private  Integer credits;
 
   User(String name, Integer age, Integer credits) {
     this.name = name;
