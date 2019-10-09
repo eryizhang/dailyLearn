@@ -24,8 +24,8 @@ public class FinalizeEscapeGC {
     }
     public static void main(String[] args) throws Throwable {
         String s ="123";
-        s=null;
-        System.out.println(s);
+       /* s=null;
+        System.out.println(s);*/
         SAVE_HOOK = new FinalizeEscapeGC("abc");
         SAVE_HOOK =null;
         System.gc();
